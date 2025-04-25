@@ -237,7 +237,7 @@ $cards[2]
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo</title>
+    <title>Jogo de Card Naruto</title>
 </head>
 <body style="width: 100dvw; height:100dvh; overflow:hidden; background-image:url('https://mrwallpaper.com/images/hd/anime-naruto-and-minato-sharing-chakra-y6yua7eiihbq1vm7.jpg'); align-items:center">
     <div style="width: 100dvw; height:20dvh;display: flex; justify-content:center; align-items:center;flex-direction:column">
