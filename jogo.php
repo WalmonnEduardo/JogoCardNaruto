@@ -52,7 +52,48 @@ class Card
         // allowfullscreen permite que o usuário assista em tela cheia
 
     }
+    public function resposta()
+    {
+        return "
+        <div style='height:600px; width:400px; background-color:{$this->getCor1()};display:flex;flex-direction:column;align-items:center;border-radius:20px;'>
+            <div style='display:flex;justify-content:center;align-items:center; heigh:10%; width:100%; background-color:{$this->getCor2()};border-radius:20px 20px 0 0;'>
+            <h1>{$this->getNome()}</h1>
+            </div>
+            <div>
+            <img src='{$this->getImg()}' alt='{$this->getNome()}' style='height:200px; margin-top:20px'></img>
+            </div>
+            <div>
+            <p style:'{$this->getCor2()}'>{$this->getDica()}
+            </p>
+            </div>
+            <iframe width='380' height='380' 
+                src='{$this->getVideo()}' 
+                title='YouTube video player' 
+                frameborder='0'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' 
+                allowfullscreen>
+            </iframe>
+            <div>
+            <a href='{$this->getLink()}' target='_blank' style='text-decoration:none; color:{$this->getCor2()};'>Link {$this->getNome()}</a>
+            </div>
+        </div>
+        ";
+        // width define a largura do player (exemplo: 380 pixels)
+        // height define a altura do player (exemplo: 380 pixels)
+        // src pega a URL do vídeo (formato embed do YouTube, ex: https://www.youtube.com/embed/ID_DO_VIDEO)
+        // title fornece uma descrição acessível para o player (exemplo: "YouTube video player")
+        // frameborder remove a borda do vídeo quando definido como 0
+        // allow especifica quais recursos especiais o vídeo pode usar:
+        //   - accelerometer: permite detectar movimento (ex: inclinar o celular)
+        //   - autoplay: permite o vídeo começar automaticamente
+        //   - clipboard-write: permite copiar conteúdo do vídeo (como links)
+        //   - encrypted-media: permite reprodução de mídia protegida (DRM)
+        //   - gyroscope: permite detectar rotação (como jogos em celular)
+        //   - picture-in-picture: permite assistir o vídeo numa janela flutuante
+        //   - web-share: permite compartilhar via recursos nativos do navegador
+        // allowfullscreen permite que o usuário assista em tela cheia
 
+    }
 
     /**
      * Get the value of nome
@@ -199,6 +240,10 @@ class Card
     }
 }
 $palpite = $_GET["palpite"];
+if(is_numeric($palpite) && intval($palpite) == $palpite)
+{
+    $palpite = intval($palpite);
+}
 $sort = random_int(1,3);
 $cards = array();
 $cards[0] = new Card();
@@ -242,45 +287,62 @@ $cards[2]
 <body style="width: 100dvw; height:100dvh; overflow:hidden; background-image:url('https://mrwallpaper.com/images/hd/anime-naruto-and-minato-sharing-chakra-y6yua7eiihbq1vm7.jpg'); align-items:center">
     <div style="width: 100dvw; height:20dvh;display: flex; justify-content:center; align-items:center;flex-direction:column">
     <?php
-    if($palpite === null)
+    switch($palpite)
     {
-        print "<h1 style='color:white'>Selecione um número na url adicionando '/?palpite=[número]' ou tocando na imagem do card</h1>";
-    }
-    else if($palpite === "")
-    {
-        print "<h1 style='color:white'>Você não deu um número</h1>";
-        print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
-    }
-    else if($palpite !== $sort)
-    {
-        print "<h1 style='color:red'>Você errou!!</h1></br>";
-        print "<h1 style='color:red'>A correta era</h1>";
-        print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
-    }
-    else if($palpite === $sort)
-    {
-        print "<h1 style='color:green'>Você ganhou!!</h1>";
-        print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+        case null: 
+            print "<h1 style='color:white'>Selecione um número na url adicionando '/?palpite=[número de 1 a 3]' ou tocando na imagem do card</h1>";
+        break;
+        case "":
+            print "<h1 style='color:white'>Você não deu um número</h1>";
+            print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+        break;
+        case is_string($palpite):
+            print "<h1 style='color:white'>Você não deu um número</h1>";
+            print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+        break;
+        case $sort:
+            print "<h1 style='color:green'>Você ganhou!!</h1>";
+            print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+        break;
+        default:
+            if($palpite > 3 || $palpite < 1)
+            {
+                print "<h1 style='color:white'>Número inválido</h1>";
+                print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+            }
+            else
+            {
+                print "<h1 style='color:red'>Você errou!!</h1></br>";
+                print "<h1 style='color:red'>A correta era</h1>";
+                print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
+            }
+        break;
     }
     ?>
     </div>
     <div style="width: 100dvw; height:80dvh;display: flex; justify-content:space-evenly; align-items:center">
     <?php
-    if($palpite === null)
+    switch($palpite)
     {
-        print $cards[0];
-        print $cards[1];
-        print $cards[2];
-    }
-    else if($palpite === "")
-    {
-        print $cards[0];
-        print $cards[1];
-        print $cards[2];
-    }
-    else
-    {
-        print $cards[$sort-1];
+        case null:
+            print $cards[0];
+            print $cards[1];
+            print $cards[2];
+        break;
+        case "":
+            print $cards[0];
+            print $cards[1];
+            print $cards[2];
+        break;
+        case is_string($palpite):
+            print "<h1 style='color:red'>Pare de tentar estragar meu código</h1>";
+        break;
+        default:
+            if($palpite > 0 && $palpite < 4)
+            {
+                print $cards[$sort-1]->resposta();
+            }
+        break;
     }
     ?>    
     </div>
