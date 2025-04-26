@@ -78,21 +78,6 @@ class Card
             </div>
         </div>
         ";
-        // width define a largura do player (exemplo: 380 pixels)
-        // height define a altura do player (exemplo: 380 pixels)
-        // src pega a URL do vídeo (formato embed do YouTube, ex: https://www.youtube.com/embed/ID_DO_VIDEO)
-        // title fornece uma descrição acessível para o player (exemplo: "YouTube video player")
-        // frameborder remove a borda do vídeo quando definido como 0
-        // allow especifica quais recursos especiais o vídeo pode usar:
-        //   - accelerometer: permite detectar movimento (ex: inclinar o celular)
-        //   - autoplay: permite o vídeo começar automaticamente
-        //   - clipboard-write: permite copiar conteúdo do vídeo (como links)
-        //   - encrypted-media: permite reprodução de mídia protegida (DRM)
-        //   - gyroscope: permite detectar rotação (como jogos em celular)
-        //   - picture-in-picture: permite assistir o vídeo numa janela flutuante
-        //   - web-share: permite compartilhar via recursos nativos do navegador
-        // allowfullscreen permite que o usuário assista em tela cheia
-
     }
 
     /**
