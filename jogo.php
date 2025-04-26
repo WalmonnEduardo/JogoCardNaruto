@@ -199,6 +199,10 @@ class Card
     }
 }
 $palpite = $_GET["palpite"];
+if($palpite === "")
+{
+    $palpite="nao informado";
+}
 if(is_numeric($palpite) && intval($palpite) == $palpite)
 {
     $palpite = intval($palpite);
@@ -251,7 +255,7 @@ $cards[2]
         case null: 
             print "<h1 style='color:white'>Selecione um número na url adicionando '/?palpite=[número de 1 a 3]' ou tocando na imagem do card</h1>";
         break;
-        case "":
+        case "nao informado":
             print "<h1 style='color:white'>Você não deu um número</h1>";
             print "<a style='color:white' href='?'>clique aqui para reiniciar</a>";
         break;
@@ -288,10 +292,8 @@ $cards[2]
             print $cards[1];
             print $cards[2];
         break;
-        case "":
-            print $cards[0];
-            print $cards[1];
-            print $cards[2];
+        case "nao informado":
+            print"<h1 style='color:red'>Erro, informe um número por favor</h1>";
         break;
         case is_string($palpite):
             print "<h1 style='color:red'>Pare de tentar estragar meu código</h1>";
